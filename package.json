@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "npx lightningcss-cli || echo 'lightningcss rebuild skipped'"
   },
   "dependencies": {
     "framer-motion": "^12.23.0",
