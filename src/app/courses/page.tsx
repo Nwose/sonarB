@@ -408,7 +408,7 @@ const CourseCard = ({
   category,
 }: CourseCardProps) => {
   return (
-    <div className="bg-gray-100 shadow-lg rounded-lg overflow-hidden relative">
+    <div className="bg-gray-100 shadow-lg rounded-lg overflow-hidden relative flex flex-col h-full min-h-[480px]">
       <div className="relative">
         <img src={image} alt={title} className="w-full h-48 object-cover" />
         <span
@@ -422,9 +422,9 @@ const CourseCard = ({
           {price}
         </span>
       </div>
-      <div className="p-4">
+      <div className="p-4 flex flex-col flex-1">
         <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
-        <p className="text-gray-700 text-sm mb-4">{description}</p>
+        <p className="text-gray-700 text-sm mb-4 flex-1">{description}</p>
         <div className="flex items-center text-gray-500 text-sm mb-4">
           <FaCalendarAlt className="mr-2" />
           <span>{duration}</span>
@@ -437,7 +437,7 @@ const CourseCard = ({
             <Badge key={idx}>{tag}</Badge>
           ))}
         </div>
-        <button className="w-full mt-2 px-4 py-2 bg-gray-900 text-white rounded-lg font-semibold shadow hover:bg-sonarb-navy-light transition duration-300">
+        <button className="w-full mt-auto px-4 py-2 bg-gray-900 text-white rounded-lg font-semibold shadow hover:bg-sonarb-navy-light transition duration-300">
           Learn More
         </button>
       </div>
@@ -589,7 +589,6 @@ const Courses: React.FC = () => {
           </p>
         </div>
       </section>
-
       <section className="py-8 bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row gap-6 items-center justify-between">
           {/* Filter by Level */}
@@ -634,7 +633,6 @@ const Courses: React.FC = () => {
           </div>
         </div>
       </section>
-
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="mb-8 flex items-center justify-between">
@@ -667,7 +665,7 @@ const Courses: React.FC = () => {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredCourses.map((course, index) => (
               <div
                 key={index}
@@ -677,8 +675,19 @@ const Courses: React.FC = () => {
                 <CourseCard {...course} />
               </div>
             ))}
-          </div>
+          </div> */}
 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+            {filteredCourses.map((course, index) => (
+              <div
+                key={index}
+                className="animate-scale-in h-full"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CourseCard {...course} />
+              </div>
+            ))}
+          </div>
           {filteredCourses.length === 0 && (
             <div className="text-center py-16">
               <div className="text-6xl mb-4">📚</div>
@@ -701,7 +710,6 @@ const Courses: React.FC = () => {
           )}
         </div>
       </section>
-
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
@@ -720,7 +728,7 @@ const Courses: React.FC = () => {
             </button>
           </div>
         </div>
-      </section>
+      </section>{" "}
     </div>
   );
 };

@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -17,6 +18,8 @@ const navLinks = [
 export default function Navbar() {
   const pathname = usePathname();
   const [isLight, setIsLight] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +29,21 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(e.target as Node)
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+    if (mobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [mobileMenuOpen]);
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-300 backdrop-blur-md border-b ${
@@ -34,14 +52,14 @@ export default function Navbar() {
           : "bg-[#ffffff1a] border-white/10 shadow-inner"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 lg:px-16 xl:px-16 flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <Image src="/logo.png" alt="SonarB Tech" width={40} height={40} />
         </Link>
 
-        {/* Navigation Links */}
-        <div className="ml-auto flex items-center space-x-6">
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -60,7 +78,6 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {/* CTA Button */}
           <Link href="/signup">
             <button
               className={`ml-4 px-4 py-2 rounded-lg font-semibold shadow transition duration-300 ${
@@ -73,7 +90,48 @@ export default function Navbar() {
             </button>
           </Link>
         </div>
+
+        {/* Mobile Hamburger */}
+        <div className="md:hidden">
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? (
+              <FaTimes className="text-2xl text-gray-900" />
+            ) : (
+              <FaBars className="text-2xl text-gray-900" />
+            )}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div
+          ref={mobileMenuRef}
+          className={`md:hidden fixed top-16 left-0 right-0 bg-white shadow-lg z-40 transition-all duration-300`}
+        >
+          <div className="flex flex-col space-y-4 p-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`text-lg font-medium ${
+                  pathname === link.path
+                    ? "text-[#020233] font-semibold"
+                    : "text-gray-700 hover:text-[#020233]"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <Link href="/signup">
+              <button className="w-full mt-4 px-4 py-2 rounded-lg font-semibold bg-[#020233] text-white hover:bg-gray-700">
+                Get Started
+              </button>
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
