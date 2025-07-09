@@ -41,7 +41,7 @@ const LatestBlogs = () => (
         </div>
         <Link href="/blog">
           <Button
-            variant="outline"
+            // variant="outline"
             className="border-[#020233] text-[#020233] hover:bg-[#020233] hover:text-white"
           >
             View All Blogs

@@ -1,53 +1,28 @@
-// export const CourseCard = ({
-//   title,
-//   description,
-//   image,
-//   level,
-//   duration,
-//   price,
-//   tags,
-// }: any) => {
-//   return (
-//     <div className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition">
-//       <div className="relative">
-//         <img src={image} alt={title} className="w-full h-48 object-cover" />
-//         <span className="absolute top-3 left-3 bg-sonarb-navy text-white text-xs font-bold px-3 py-1 rounded-full shadow">
-//           {level}
-//         </span>
-//       </div>
-//       <div className="p-4">
-//         <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
-//         <p className="text-gray-600 text-sm mb-2">{description}</p>
-//         <div className="text-sm text-gray-500">
-//           <span>{duration}</span> • <span>{price}</span>
-//         </div>
-//         <div className="mt-3 flex flex-wrap gap-2">
-//           {tags.map((tag: string, idx: number) => (
-//             <span
-//               key={idx}
-//               className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
-//             >
-//               {tag}
-//             </span>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
+import { FC } from "react";
 import { FiCalendar } from "react-icons/fi";
+import Image from "next/image";
 
-const CourseCard = ({
+type CourseCardProps = {
+  title: string;
+  description: string;
+  image: string;
+  duration: string;
+  level: "Beginner" | "Intermediate" | "Advanced" | string;
+  price: string;
+  category?: string;
+  tags?: string[];
+};
+
+const CourseCard: FC<CourseCardProps> = ({
   title,
   description,
   image,
   duration,
   level,
   price,
-  category,
-  tags,
-}: any) => {
+  // category,
+  // tags,
+}) => {
   const levelColors: { [key: string]: string } = {
     Beginner: "bg-green-600",
     Intermediate: "bg-yellow-600",
@@ -57,7 +32,13 @@ const CourseCard = ({
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md relative group transition transform hover:scale-105 duration-300">
       <div className="relative">
-        <img src={image} alt={title} className="w-full h-48 object-cover" />
+        <Image
+          src={image}
+          alt={title}
+          width={400}
+          height={200}
+          className="w-full h-48 object-cover"
+        />
 
         {/* Level Badge */}
         <span

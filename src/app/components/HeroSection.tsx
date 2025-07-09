@@ -6,10 +6,10 @@ export default function HeroSection() {
       className="relative pt-24 pb-16 min-h-[100vh] flex items-center overflow-hidden"
       style={{
         backgroundImage: "url('/EduTech.jpg')",
-        backgroundSize: "cover", // covers the whole section
-        backgroundPosition: "right center", // focus more on the right
+        backgroundSize: "cover",
+        backgroundPosition: "right center",
         backgroundRepeat: "no-repeat",
-        backgroundColor: "#020233", // fallback color
+        backgroundColor: "#020233",
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-[#020233cc] via-[#02023388] to-transparent z-0" />
@@ -35,7 +35,6 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Right-side Spacer to fully show image */}
         <div className="hidden lg:block lg:w-3/5" />
       </div>
     </section>

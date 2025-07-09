@@ -2,6 +2,16 @@
 import React from "react";
 import Image from "next/image";
 
+interface EventCardProps {
+  title: string;
+  description: string;
+  image: string;
+  date: string;
+  time: string;
+  location: string;
+  type: string;
+}
+
 const EventCard = ({
   title,
   description,
@@ -10,7 +20,7 @@ const EventCard = ({
   time,
   location,
   type,
-}) => (
+}: EventCardProps) => (
   <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
     <Image
       src={image}

@@ -1,7 +1,25 @@
 import React from "react";
 import Image from "next/image";
 
-const BlogCard = ({ title, excerpt, image, author, date, readTime, tags }) => (
+interface BlogCardProps {
+  title: string;
+  excerpt: string;
+  image: string;
+  author: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+}
+
+const BlogCard = ({
+  title,
+  excerpt,
+  image,
+  author,
+  date,
+  readTime,
+  tags,
+}: BlogCardProps) => (
   <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
     <Image
       src={image}

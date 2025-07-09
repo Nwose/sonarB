@@ -50,7 +50,7 @@ const FeaturedCourses: React.FC = () => (
         </div>
         <Link href="/courses">
           <Button
-            variant="outline"
+            // variant="outline"
             className="border-[#020233] text-[#020233] hover:bg-[#020233] hover:text-white"
           >
             View All Courses
